@@ -9,7 +9,8 @@ namespace Enozom1.Context
     {
         public int Id { get; set; }
         public int CountryId { get; set; }
-        public string Holiday { get; set; }
+        public int HolidayId { get; set; }
         public Country Country { get; set; }
+        public Holiday Holiday { get; set; }
     }
 }
