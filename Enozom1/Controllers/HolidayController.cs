@@ -1,10 +1,10 @@
-﻿using Enozom1.Context;
+﻿using Application.Holiday.Model;
+using Domain.Entities;
+using Infrastructure.Persistance;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Enozom1.Controllers
 {
@@ -99,6 +99,24 @@ namespace Enozom1.Controllers
             }
 
         }
-        
+        [HttpGet]
+        [Route("AddHoliday")]
+        public IActionResult AddHoliday(string Name)
+        {
+            var Holiday = _context.Holiday.Where(a => a.Name == Name).FirstOrDefault();
+            if (Holiday == null)
+            {
+                var newH = new Holiday() { Name = Name };
+                _context.Holiday.Add(newH);
+                _context.SaveChanges();
+            }
+            else
+            {
+                //update if there more data
+            }
+            return Ok();
+
+        }
+
     }
 }

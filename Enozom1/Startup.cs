@@ -1,18 +1,17 @@
-using Enozom1.Context;
+using Application.Holiday.Command;
+using Infrastructure.Persistance;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Stripe;
+using System.Reflection;
+using Umbraco.Core.Services;
+using Umbraco.Core.Services.Implement;
 
 namespace Enozom1
 {
@@ -28,6 +27,8 @@ namespace Enozom1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediatR(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -35,6 +36,13 @@ namespace Enozom1
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Enozom1", Version = "v1" });
             });
             services.AddDbContext<EnozomDBContext>(item => item.UseSqlServer(Configuration.GetConnectionString("myconn")));
+
+            
+
+           // services.AddOptions();
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

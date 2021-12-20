@@ -1,9 +1,8 @@
-﻿using Enozom1.Context;
+﻿using Domain.Entities;
+using Infrastructure.Persistance;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Enozom1.Controllers
 {
@@ -24,6 +23,23 @@ namespace Enozom1.Controllers
             int skip = PageNum == null ? 0 : (int)PageNum * PageSize;
             var Countries = _context.Countries.ToList().Skip(skip).Take(PageSize);
             return Countries;
+        }
+        [HttpPost]
+        public IActionResult Add(string Name)
+        {
+            var country = _context.Countries.Where(a => a.Name == Name).FirstOrDefault();
+            if(country == null)
+            {
+                var newC = new Country() { Name = Name };
+                _context.Countries.Add(newC);
+                _context.SaveChanges();
+            }
+            else
+            {
+                //update if there more data
+            }
+            return Ok();
+            
         }
     }
 }
