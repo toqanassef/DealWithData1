@@ -1,7 +1,9 @@
+using Enozom1.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +34,7 @@ namespace Enozom1
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Enozom1", Version = "v1" });
             });
+            services.AddDbContext<EnozomDBContext>(item => item.UseSqlServer(Configuration.GetConnectionString("myconn")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
