@@ -12,7 +12,8 @@ namespace Enozom1.Context
         {
         }
 
-        DbSet<Country> Countries { get; set; }
-        DbSet<CountryHolidays> countryHolidays { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Holiday> Holiday { get; set; }
+        public DbSet<CountryHolidays> countryHolidays { get; set; }
     }
 }
